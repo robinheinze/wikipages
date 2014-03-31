@@ -19,8 +19,8 @@
 <ul>
   <% @contact.emails.each do |email| %>
   <li>
-    <%= @contact.email %> |
-    <a href="/contacts/<%= @contact.id %>/emails/<% email.id %>/edit">Edit</a> |
+    <%= email.email_address %> |
+    <a href="/contacts/<%= @contact.id %>/emails/<%= email.id %>/edit">Edit</a> |
     <a href="/contacts/<%= @contact.id %>/emails/<%= email.id %>"
       data-confirm="You sure?"
       data-method="delete"
