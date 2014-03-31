@@ -1,8 +1,37 @@
 <h1><%= @contact.name %></h1>
-<p>Phone: <%= @contact.phone %></p>
-<p>Email: <%= @contact.email %></p>
+
+<h4>Phones:</h4>
+<ul>
+  <% @contact.phones.each do |phone| %>
+    <li>
+      <%= phone.number %> |
+      <a href="/contacts/<%= @contact.id %>/phones/<%= phone.id %>/edit">Edit</a> |
+      <a href="/contacts/<%= @contact.id %>/phones/<%= phone.id %>"
+        data-confirm="You sure?"
+        data-method="delete"
+        rel="nofollow">Delete</a>
+    </li>
+  <% end %>
+  <li><a href="/contacts/<%= @contact.id %>/phones/new">Add phone</a></li>
+</ul>
+
+<h4>Emails:</h4>
+<ul>
+  <% @contact.emails.each do |email| %>
+  <li>
+    <%= @contact.email %> |
+    <a href="/contacts/<%= @contact.id %>/emails/<% email.id %>/edit">Edit</a> |
+    <a href="/contacts/<%= @contact.id %>/emails/<%= email.id %>"
+      data-confirm="You sure?"
+      data-method="delete"
+      rel="nofollow">Delete</a>
+  </li>
+  <% end %>
+  <li><a href="/contacts/<%= @contact.id %>/emails/new">Add email</a></li>
+</ul>
 
 <p><a href="/contacts/<%= @contact.id %>/edit">Edit</a></p>
+
 <p><a href="/contacts/<%= @contact.id %>"
       data-confirm="You sure?"
       data-method="delete"
