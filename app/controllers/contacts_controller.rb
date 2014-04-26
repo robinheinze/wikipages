@@ -1,8 +1,7 @@
 class ContactsController < ApplicationController
   def index
     @contacts = Contact.all
-    @contact = Contact.new
-    render('contacts/index.html.erb')
+    render :json => @contacts
   end
 
   def show
@@ -11,31 +10,33 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.create(:name => params[:name])
+    @contact = Contact.create(contact_params)
     if @contact.save
-      render('contacts/success.html.erb')
+      render :json => @contact, :status => 201
     else
-      render('contacts/new.html.erb')
+      render :json => @contact.errors, :status => 422
     end
-  end
-
-  def edit
-    @contact = Contact.find(params[:id])
-    render('contacts/edit.html.erb')
   end
 
   def update
     @contact = Contact.find(params[:id])
-    if @contact.update(:name => params[:name])
-      render('contacts/success.html.erb')
+    if @contact.update(contact_params)
+      head :no_content
     else
-      render('contacts/edit.html.erb')
+      render :json => @contact.errors, :status => 422
     end
   end
 
   def destroy
     @contact = Contact.find(params[:id])
     @contact.destroy
-    render('contacts/destroy.html.erb')
+    head :no_content
   end
+
+  private
+
+  def contact_params
+    params.fetch(:contact).permit(:name, :email, :phone)
+  end
+
 end
