@@ -131,7 +131,7 @@ DEPENDENCIES
   jquery-rails
   pg
   quiet_assets
-  rails
+  rails (= 4.0.4)
   rspec-rails
   sass-rails
   shoulda-matchers
